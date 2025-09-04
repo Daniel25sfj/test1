@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function GotterBoysLogo() {
   return (
     <Image
-      src="/logo.png"
+      src="/gotterboys.png"
       alt="g0TtErBoYs logo"
       width={180}
       height={40}
