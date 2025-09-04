@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 import GotterBoysLogo from "./GotterBoysLogo";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { isSignedIn, isLoaded } = useUser();
 
   const navItems = [
     { name: "Home", href: "/mainPage" },
@@ -40,6 +42,41 @@ export default function Navbar() {
                 </Link>
               );
             })}
+
+            {/* Dashboard link - only show if signed in */}
+            {isLoaded && isSignedIn && (
+              <Link
+                href="/dashboard"
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  pathname === "/dashboard"
+                    ? "bg-blue-100 text-blue-700 border-b-2 border-blue-500"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                }`}
+              >
+                Dashboard
+              </Link>
+            )}
+
+            {/* Authentication buttons */}
+            <div className="flex items-center">
+              {!isLoaded ? (
+                <div className="w-8 h-8 animate-pulse bg-gray-200 rounded-full"></div>
+              ) : isSignedIn ? (
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-8 h-8",
+                    },
+                  }}
+                />
+              ) : (
+                <SignInButton mode="modal">
+                  <button className="bg-slate-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-700 transition-colors">
+                    Logg inn
+                  </button>
+                </SignInButton>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -11,7 +11,6 @@ export default function Dashboard() {
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
       router.push("/");
-      npm;
     }
   }, [isLoaded, isSignedIn, router]);
 
@@ -24,7 +23,7 @@ export default function Dashboard() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-slate-800 mb-4">
-            Velkommen tilbake! 🎉
+            Velkommen tilbake!
           </h1>
           <p className="text-slate-600 text-lg">
             Du er nå innlogget på g0TtErBoYs
@@ -34,7 +33,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
             <h2 className="text-2xl font-bold text-slate-800 mb-4">
-              📊 Dashboard
+              Dashboard
             </h2>
             <p className="text-slate-600 mb-4">
               Her kan du se din personlige oversikt og innstillinger.
@@ -45,9 +44,7 @@ export default function Dashboard() {
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
-            <h2 className="text-2xl font-bold text-slate-800 mb-4">
-              👥 Profil
-            </h2>
+            <h2 className="text-2xl font-bold text-slate-800 mb-4">Profil</h2>
             <p className="text-slate-600 mb-4">
               Oppdater din profil og personlige informasjon.
             </p>
@@ -58,7 +55,7 @@ export default function Dashboard() {
 
           <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
             <h2 className="text-2xl font-bold text-slate-800 mb-4">
-              🔒 Innstillinger
+              Innstillinger
             </h2>
             <p className="text-slate-600 mb-4">
               Administrer dine kontoinnstillinger og sikkerhet.
@@ -70,7 +67,7 @@ export default function Dashboard() {
 
           <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
             <h2 className="text-2xl font-bold text-slate-800 mb-4">
-              📱 Notifikasjoner
+              Notifikasjoner
             </h2>
             <p className="text-slate-600 mb-4">
               Se dine siste meldinger og oppdateringer.
