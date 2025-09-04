@@ -31,24 +31,36 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center pt-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center pt-20">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-800 mb-2">
+          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
             Velkommen til g0TtErBoYs
           </h1>
-          <p className="text-slate-600">Logg inn for å fortsette</p>
+          <p className="text-gray-300 text-lg">Logg inn for å fortsette</p>
         </div>
-        <SignIn
-          appearance={{
-            elements: {
-              formButtonPrimary:
-                "bg-slate-600 hover:bg-slate-700 text-sm normal-case",
-              card: "shadow-lg border border-slate-200",
-            },
-          }}
-          redirectUrl="/dashboard"
-        />
+        <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-2xl border border-gray-700/50 p-8">
+          <SignIn
+            appearance={{
+              elements: {
+                formButtonPrimary:
+                  "bg-blue-600 hover:bg-blue-500 text-sm normal-case font-medium transition-all duration-200 hover:shadow-lg hover:shadow-blue-600/25",
+                card: "bg-transparent shadow-none border-none",
+                headerTitle: "text-white text-2xl font-bold",
+                headerSubtitle: "text-gray-300",
+                socialButtonsBlockButton:
+                  "bg-gray-700 hover:bg-gray-600 text-white border-gray-600",
+                formFieldInput:
+                  "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500",
+                formFieldLabel: "text-gray-300",
+                footerActionLink: "text-blue-400 hover:text-blue-300",
+                identityPreviewText: "text-gray-300",
+                formResendCodeLink: "text-blue-400 hover:text-blue-300",
+              },
+            }}
+            redirectUrl="/dashboard"
+          />
+        </div>
       </div>
     </div>
   );
