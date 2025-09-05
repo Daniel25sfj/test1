@@ -6,10 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node scripts/seed-database.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.31.8",
+    "dotenv": "^16.4.5",
     "mongodb": "^6.19.0",
     "next": "15.5.2",
     "react": "19.1.0",

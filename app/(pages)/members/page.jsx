@@ -36,7 +36,7 @@ export default function Members() {
                 <h3 className="text-2xl font-bold text-white">Meg</h3>
               </div>
               <p className="text-gray-300 leading-relaxed text-center">
-                Creative designer and frontend developer.
+                CS2 Global Elite | 2.5K hours | AWP Main | Rank S Player
               </p>
             </div>
 
@@ -51,7 +51,7 @@ export default function Members() {
                 <h3 className="text-2xl font-bold text-white">Member 2</h3>
               </div>
               <p className="text-gray-300 leading-relaxed text-center">
-                Backend specialist and API architect.
+                Valorant Radiant | 1.8K hours | Jett Main | Pro Team Captain
               </p>
             </div>
 
@@ -66,7 +66,7 @@ export default function Members() {
                 <h3 className="text-2xl font-bold text-white">Member 3</h3>
               </div>
               <p className="text-gray-300 leading-relaxed text-center">
-                Fullstack developer and project manager.
+                League of Legends Challenger | 3.2K hours | Mid Lane | 1v9 Carry
               </p>
             </div>
             <div className="group bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-2xl p-8 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:shadow-gray-900/50 hover:-translate-y-1 relative overflow-hidden">
@@ -80,7 +80,8 @@ export default function Members() {
                 <h3 className="text-2xl font-bold text-white">Member 4</h3>
               </div>
               <p className="text-gray-300 leading-relaxed text-center">
-                Fullstack developer and project manager.
+                Apex Legends Predator | 1.5K hours | Wraith Main | 20 Bomb
+                Record
               </p>
             </div>
             <div className="group bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-2xl p-8 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:shadow-gray-900/50 hover:-translate-y-1 relative overflow-hidden">
@@ -94,7 +95,7 @@ export default function Members() {
                 <h3 className="text-2xl font-bold text-white">Member 5</h3>
               </div>
               <p className="text-gray-300 leading-relaxed text-center">
-                Fullstack developer and project manager.
+                Overwatch Top 500 | 2.1K hours | Tracer Main | OWL Contender
               </p>
             </div>
             <div className="group bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-2xl p-8 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:shadow-gray-900/50 hover:-translate-y-1 relative overflow-hidden">
@@ -108,7 +109,8 @@ export default function Members() {
                 <h3 className="text-2xl font-bold text-white">Member 6</h3>
               </div>
               <p className="text-gray-300 leading-relaxed text-center">
-                Fullstack developer and project manager.
+                Fortnite Champion | 4.0K hours | Builder Pro | World Cup
+                Qualifier
               </p>
             </div>
           </div>

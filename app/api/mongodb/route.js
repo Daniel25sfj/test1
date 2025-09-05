@@ -1,90 +1,155 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import { connectToDataBase } from "@/lib/mongodb";
 
-// Mock data for now - replace with actual MongoDB connection
 const mockData = [
   {
-    _id: '1',
-    name: 'Player 1',
-    title: 'Frontend Developer',
-    description: 'Creative designer and frontend developer with 3 years experience.',
-    content: 'Specializes in React, Next.js, and modern web technologies.',
-    createdAt: new Date('2024-01-15'),
+    _id: "1",
+    name: "Team Alpha",
+    title: "CS2 Pro Team",
+    description:
+      "CS2 Global Elite Squad | 15K+ combined hours | Major Tournament Winners",
+    content:
+      "Elite Counter-Strike 2 team with multiple tournament victories. Specializes in tactical gameplay and precision aim.",
+    status: "Active",
+    members: [
+      { name: "Ace", role: "IGL/AWP" },
+      { name: "Frag", role: "Entry Fragger" },
+      { name: "Support", role: "Support Player" },
+    ],
+    createdAt: new Date("2024-01-15"),
   },
   {
-    _id: '2', 
-    name: 'Player 2',
-    title: 'Backend Specialist',
-    description: 'Backend specialist and API architect with expertise in Node.js.',
-    content: 'Focuses on scalable server architecture and database optimization.',
-    createdAt: new Date('2024-01-20'),
+    _id: "2",
+    name: "Team Beta",
+    title: "Valorant Champions",
+    description: "Valorant Radiant Team | 12K+ combined hours | VCT Contenders",
+    content:
+      "Top-tier Valorant team competing in professional circuits. Known for aggressive plays and clutch moments.",
+    status: "Active",
+    members: [
+      { name: "Jett", role: "Duelist" },
+      { name: "Sage", role: "Sentinel" },
+      { name: "Omen", role: "Controller" },
+    ],
+    createdAt: new Date("2024-01-20"),
   },
   {
-    _id: '3',
-    name: 'Player 3', 
-    title: 'Fullstack Developer',
-    description: 'Fullstack developer and project manager with 5 years experience.',
-    content: 'Leads development teams and manages complex web applications.',
-    createdAt: new Date('2024-01-25'),
+    _id: "3",
+    name: "Team Gamma",
+    title: "League of Legends Squad",
+    description: "LoL Challenger Team | 20K+ combined hours | Worlds Qualifier",
+    content:
+      "Elite League of Legends team with strategic gameplay and mechanical excellence. Multiple regional championships.",
+    status: "Active",
+    members: [
+      { name: "Top", role: "Top Laner" },
+      { name: "Jungle", role: "Jungler" },
+      { name: "Mid", role: "Mid Laner" },
+      { name: "ADC", role: "Bot Laner" },
+      { name: "Support", role: "Support" },
+    ],
+    createdAt: new Date("2024-01-25"),
   },
   {
-    _id: '4',
-    name: 'Player 4',
-    title: 'UI/UX Designer',
-    description: 'Creative UI/UX designer focused on user experience.',
-    content: 'Creates beautiful and intuitive user interfaces.',
-    createdAt: new Date('2024-02-01'),
+    _id: "4",
+    name: "Team Delta",
+    title: "Apex Legends Predators",
+    description: "Apex Predator Squad | 8K+ combined hours | ALGS Champions",
+    content:
+      "Dominant Apex Legends team with exceptional movement and positioning. Multiple tournament wins.",
+    status: "Active",
+    members: [
+      { name: "Wraith", role: "Assault" },
+      { name: "Pathfinder", role: "Recon" },
+      { name: "Lifeline", role: "Support" },
+    ],
+    createdAt: new Date("2024-02-01"),
   },
   {
-    _id: '5',
-    name: 'Player 5',
-    title: 'DevOps Engineer',
-    description: 'DevOps engineer specializing in cloud infrastructure.',
-    content: 'Manages deployment pipelines and cloud services.',
-    createdAt: new Date('2024-02-05'),
+    _id: "5",
+    name: "Team Epsilon",
+    title: "Overwatch Champions",
+    description: "OW Top 500 Team | 10K+ combined hours | OWL Contenders",
+    content:
+      "Professional Overwatch team with exceptional coordination and game sense. Multiple season victories.",
+    status: "Active",
+    members: [
+      { name: "Tank", role: "Tank Player" },
+      { name: "DPS", role: "Damage Dealer" },
+      { name: "Support", role: "Healer" },
+    ],
+    createdAt: new Date("2024-02-05"),
   },
   {
-    _id: '6',
-    name: 'Player 6',
-    title: 'Data Analyst',
-    description: 'Data analyst with expertise in business intelligence.',
-    content: 'Transforms data into actionable business insights.',
-    createdAt: new Date('2024-02-10'),
-  }
+    _id: "6",
+    name: "Team Zeta",
+    title: "Fortnite Warriors",
+    description:
+      "FN Champion Squad | 25K+ combined hours | World Cup Finalists",
+    content:
+      "Elite Fortnite team with incredible building skills and game sense. Multiple cash cup victories.",
+    status: "Active",
+    members: [
+      { name: "Builder", role: "Builder Pro" },
+      { name: "Editor", role: "Edit Master" },
+      { name: "Fighter", role: "Combat Specialist" },
+    ],
+    createdAt: new Date("2024-02-10"),
+  },
 ];
 
 export async function GET() {
   try {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    return NextResponse.json(mockData);
+    const db = await connectToDataBase();
+
+    if (!db) {
+      throw new Error("Database connection failed");
+    }
+
+    // Try to get data from MongoDB
+    const collection = db.collection("teams");
+    const teams = await collection.find({}).toArray();
+
+    // If no data exists, seed the database with mock data
+    if (teams.length === 0) {
+      console.log("No teams found, seeding database...");
+      await collection.insertMany(mockData);
+      return NextResponse.json(mockData);
+    }
+
+    return NextResponse.json(teams);
   } catch (error) {
-    console.error('Error fetching MongoDB data:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch data' },
-      { status: 500 }
-    );
+    console.error("Error fetching MongoDB data:", error);
+    // Fallback to mock data if database fails
+    return NextResponse.json(mockData);
   }
 }
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    
-    // Add new item to mock data
-    const newItem = {
-      _id: Date.now().toString(),
+    const db = await connectToDataBase();
+
+    if (!db) {
+      throw new Error("Database connection failed");
+    }
+
+    const collection = db.collection("teams");
+
+    // Create new team document
+    const newTeam = {
       ...body,
       createdAt: new Date(),
     };
-    
-    mockData.push(newItem);
-    
-    return NextResponse.json(newItem, { status: 201 });
+
+    const result = await collection.insertOne(newTeam);
+    newTeam._id = result.insertedId;
+
+    return NextResponse.json(newTeam, { status: 201 });
   } catch (error) {
-    console.error('Error creating MongoDB data:', error);
+    console.error("Error creating MongoDB data:", error);
     return NextResponse.json(
-      { error: 'Failed to create data' },
+      { error: "Failed to create data" },
       { status: 500 }
     );
   }
