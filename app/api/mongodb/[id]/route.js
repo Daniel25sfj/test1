@@ -5,58 +5,62 @@ const mockData = [
   {
     _id: "1",
     name: "Player 1",
-    title: "Frontend Developer",
-    description:
-      "Creative designer and frontend developer with 3 years experience.",
-    content: "Specializes in React, Next.js, and modern web technologies.",
+    title: "CS2 Global Elite",
+    description: "CS2 Global Elite | 2.5K hours | AWP Main | Rank S Player",
+    content:
+      "Elite Counter-Strike 2 player specializing in AWP sniping. Known for clutch plays and tactical positioning.",
     createdAt: new Date("2024-01-15"),
   },
   {
     _id: "2",
     name: "Player 2",
-    title: "Backend Specialist",
-    description:
-      "Backend specialist and API architect with expertise in Node.js.",
+    title: "Valorant Radiant",
+    description: "Valorant Radiant | 1.8K hours | Jett Main | Pro Team Captain",
     content:
-      "Focuses on scalable server architecture and database optimization.",
+      "Top-tier Valorant player with exceptional movement and aim. Leads professional team with aggressive playstyle.",
     createdAt: new Date("2024-01-20"),
   },
   {
     _id: "3",
     name: "Player 3",
-    title: "Fullstack Developer",
+    title: "LoL Challenger",
     description:
-      "Fullstack developer and project manager with 5 years experience.",
-    content: "Leads development teams and manages complex web applications.",
+      "League of Legends Challenger | 3.2K hours | Mid Lane | 1v9 Carry",
+    content:
+      "Elite League of Legends mid laner with exceptional mechanical skills and game sense. Known for carrying games.",
     createdAt: new Date("2024-01-25"),
   },
   {
     _id: "4",
     name: "Player 4",
-    title: "UI/UX Designer",
-    description: "Creative UI/UX designer focused on user experience.",
-    content: "Creates beautiful and intuitive user interfaces.",
+    title: "Apex Predator",
+    description:
+      "Apex Legends Predator | 1.5K hours | Wraith Main | 20 Bomb Record",
+    content:
+      "Dominant Apex Legends player with incredible movement and positioning. Holds multiple kill records.",
     createdAt: new Date("2024-02-01"),
   },
   {
     _id: "5",
     name: "Player 5",
-    title: "DevOps Engineer",
-    description: "DevOps engineer specializing in cloud infrastructure.",
-    content: "Manages deployment pipelines and cloud services.",
+    title: "OW Top 500",
+    description: "Overwatch Top 500 | 2.1K hours | Tracer Main | OWL Contender",
+    content:
+      "Professional Overwatch player with exceptional tracking and positioning. Competing in OWL circuits.",
     createdAt: new Date("2024-02-05"),
   },
   {
     _id: "6",
     name: "Player 6",
-    title: "Data Analyst",
-    description: "Data analyst with expertise in business intelligence.",
-    content: "Transforms data into actionable business insights.",
+    title: "Fortnite Champion",
+    description:
+      "Fortnite Champion | 4.0K hours | Builder Pro | World Cup Qualifier",
+    content:
+      "Elite Fortnite player with incredible building skills and game sense. Multiple tournament victories.",
     createdAt: new Date("2024-02-10"),
   },
 ];
 
-// GET single item
 export async function GET(request, { params }) {
   try {
     const { id } = params;
@@ -76,7 +80,6 @@ export async function GET(request, { params }) {
   }
 }
 
-// PUT update item
 export async function PUT(request, { params }) {
   try {
     const { id } = params;
@@ -88,7 +91,6 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: "Item not found" }, { status: 404 });
     }
 
-    // Update the item
     const updatedItem = {
       ...mockData[itemIndex],
       ...body,
@@ -107,7 +109,6 @@ export async function PUT(request, { params }) {
   }
 }
 
-// DELETE item
 export async function DELETE(request, { params }) {
   try {
     const { id } = params;
@@ -117,7 +118,6 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ error: "Item not found" }, { status: 404 });
     }
 
-    // Remove the item
     const deletedItem = mockData.splice(itemIndex, 1)[0];
 
     return NextResponse.json(

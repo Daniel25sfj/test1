@@ -106,11 +106,9 @@ export async function GET() {
       throw new Error("Database connection failed");
     }
 
-    // Try to get data from MongoDB
     const collection = db.collection("teams");
     const teams = await collection.find({}).toArray();
 
-    // If no data exists, seed the database with mock data
     if (teams.length === 0) {
       console.log("No teams found, seeding database...");
       await collection.insertMany(mockData);
@@ -120,7 +118,7 @@ export async function GET() {
     return NextResponse.json(teams);
   } catch (error) {
     console.error("Error fetching MongoDB data:", error);
-    // Fallback to mock data if database fails
+
     return NextResponse.json(mockData);
   }
 }

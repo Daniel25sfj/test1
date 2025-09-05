@@ -1,6 +1,5 @@
 import { connectToDataBase } from "@/lib/mongodb";
 
-// Mock gaming data for seeding - will be used to populate database
 const mockPlayerData = [
   {
     _id: "1",
@@ -97,6 +96,50 @@ export async function GET() {
 
     if (!db) {
       throw new Error("Database connection failed");
+    }
+
+    const playerStatsCollection = db.collection("player_stats");
+    const playerStats = await playerStatsCollection.find({}).toArray();
+
+    if (playerStats.length > 0) {
+      const transformedPlayers = playerStats.map((player) => ({
+        _id: player._id,
+        name: player.player.name,
+        title: `${player.player.team} Player`,
+        description: `${player.player.team} | ${player.player.match_stats.kills}K/${player.player.match_stats.deaths}D | ${player.win_rate}% Win Rate`,
+        content: `Professional CS2 player with ${player.player.match_stats.kills} kills, ${player.player.match_stats.deaths} deaths, and ${player.win_rate}% win rate.`,
+        game: "Counter-Strike 2",
+        rank: player.player.team,
+        hours: Math.floor(Math.random() * 3000) + 1000,
+        role: "Professional Player",
+        achievements: [
+          `${player.player.match_stats.mvps} MVP Awards`,
+          `${player.player.match_stats.headshots} Headshots`,
+          `${player.win_rate}% Win Rate`,
+        ],
+        matchStats: {
+          kills: player.player.match_stats.kills,
+          deaths: player.player.match_stats.deaths,
+          assists: player.player.match_stats.assists,
+          mvps: player.player.match_stats.mvps,
+          score: player.player.match_stats.score,
+          headshots: player.player.match_stats.headshots,
+          damage: player.player.match_stats.damage,
+        },
+        weaponStats: player.player.weapon_stats,
+        roundsPlayed: player.rounds_played,
+        winRate: player.win_rate,
+        kdRatio: (
+          player.player.match_stats.kills / player.player.match_stats.deaths
+        ).toFixed(2),
+        headshotPercentage: (
+          (player.player.match_stats.headshots /
+            player.player.match_stats.kills) *
+          100
+        ).toFixed(1),
+      }));
+
+      return Response.json(transformedPlayers);
     }
 
     const collection = db.collection("players");

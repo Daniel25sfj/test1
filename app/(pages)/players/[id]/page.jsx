@@ -10,7 +10,6 @@ export default function PlayerPage({ params }) {
   const [player, setPlayer] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Unwrap params Promise
   const resolvedParams = use(params);
 
   useEffect(() => {

@@ -71,7 +71,7 @@ export default function Dashboard() {
           <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
             Dashboard
           </h1>
-          <p className="text-gray-300 text-xl">MongoDB data vises nedenfor</p>
+          <p className="text-gray-300 text-xl">Data vises nedenfor</p>
         </div>
 
         <Playerdashboard items={items} onUpdate={handleItemUpdate} />
