@@ -19,7 +19,7 @@ export default function Playerdashboard({ items = [], onUpdate }) {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`/api/mongodb/${editingItem._id}`, {
+      const response = await fetch(`/api/playerdata/${editingItem._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export default function Playerdashboard({ items = [], onUpdate }) {
   const handleDelete = async (itemId) => {
     if (confirm("Er du sikker på at du vil slette dette elementet?")) {
       try {
-        const response = await fetch(`/api/mongodb/${itemId}`, {
+        const response = await fetch(`/api/playerdata/${itemId}`, {
           method: "DELETE",
         });
 

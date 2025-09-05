@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-// Mock data - same as in main route
+// mock data
 const mockData = [
   {
     _id: "1",

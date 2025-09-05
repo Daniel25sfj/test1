@@ -1,4 +1,5 @@
 import { connectToDataBase } from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 const mockPlayerData = [
   {
@@ -156,5 +157,124 @@ export async function GET() {
     console.error("Error fetching player data:", error);
 
     return Response.json(mockPlayerData);
+  }
+}
+
+export async function PUT(request, { params }) {
+  try {
+    const { id } = params;
+    const body = await request.json();
+    const db = await connectToDataBase();
+
+    if (!db) {
+      throw new Error("Database connection failed");
+    }
+
+    // Try to update real player stats data first
+    const playerStatsCollection = db.collection("player_stats");
+    const existingPlayer = await playerStatsCollection.findOne({
+      _id: new ObjectId(id),
+    });
+
+    if (existingPlayer) {
+      // Update real player stats
+      const updatedPlayerStats = {
+        ...existingPlayer,
+        player: {
+          ...existingPlayer.player,
+          name: body.name || existingPlayer.player.name,
+          steam_id: body.steamId || existingPlayer.player.steam_id,
+          team: body.team || existingPlayer.player.team,
+          match_stats: {
+            kills: body.kills || existingPlayer.player.match_stats.kills,
+            deaths: body.deaths || existingPlayer.player.match_stats.deaths,
+            assists: body.assists || existingPlayer.player.match_stats.assists,
+            mvps: body.mvps || existingPlayer.player.match_stats.mvps,
+            score: body.score || existingPlayer.player.match_stats.score,
+            headshots:
+              body.headshots || existingPlayer.player.match_stats.headshots,
+            damage: body.damage || existingPlayer.player.match_stats.damage,
+          },
+          weapon_stats: body.weaponStats || existingPlayer.player.weapon_stats,
+        },
+        rounds_played: body.roundsPlayed || existingPlayer.rounds_played,
+        win_rate: body.winRate || existingPlayer.win_rate,
+      };
+
+      await playerStatsCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updatedPlayerStats }
+      );
+
+      return Response.json(updatedPlayerStats);
+    }
+
+    // Fallback to mock data collection
+    const collection = db.collection("players");
+    const updatedPlayer = {
+      ...body,
+      updatedAt: new Date(),
+    };
+
+    await collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updatedPlayer }
+    );
+
+    return Response.json(updatedPlayer);
+  } catch (error) {
+    console.error("Error updating player data:", error);
+    return Response.json(
+      { error: "Failed to update player data" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request, { params }) {
+  try {
+    const { id } = params;
+    const db = await connectToDataBase();
+
+    if (!db) {
+      throw new Error("Database connection failed");
+    }
+
+    // Try to delete from real player stats collection first
+    const playerStatsCollection = db.collection("player_stats");
+    const deletedPlayerStats = await playerStatsCollection.findOneAndDelete({
+      _id: new ObjectId(id),
+    });
+
+    if (deletedPlayerStats) {
+      return Response.json(
+        {
+          message: "Player stats deleted successfully",
+          deletedPlayer: deletedPlayerStats,
+        },
+        { status: 200 }
+      );
+    }
+
+    // Fallback to mock data collection
+    const collection = db.collection("players");
+    const deletedPlayer = await collection.findOneAndDelete({
+      _id: new ObjectId(id),
+    });
+
+    if (!deletedPlayer) {
+      return Response.json({ error: "Player not found" }, { status: 404 });
+    }
+
+    return Response.json(
+      { message: "Player deleted successfully", deletedPlayer },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting player data:", error);
+    return Response.json(
+      { error: "Failed to delete player data" },
+      { status: 500 }
+    );
   }
 }

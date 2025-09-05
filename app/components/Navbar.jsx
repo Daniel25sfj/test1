@@ -14,10 +14,7 @@ export default function Navbar() {
     { name: "Medlemmer", href: "/members" },
   ];
 
-  const dynamicNavItems = [
-    { name: "Players", href: "/players/1" },
-    { name: "Teams", href: "/teams/1" },
-  ];
+  const dynamicNavItems = [{ name: "Teams", href: "/teams/1" }];
 
   return (
     <nav className="bg-gray-900/95 backdrop-blur-sm shadow-lg border-b border-gray-700/50 fixed top-0 left-0 w-full z-50">
