@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Gaming Dashboard – Next.js App
 
-## Getting Started
+Dette er en Next.js-applikasjon med gaming-tema. Applikasjonen har støtte for medlemmer og et dashboard.  
+Dashboardet er kun synlig for innloggede brukere via [Clerk](https://clerk.com/) autentisering, og all data i dashboardet er koblet opp mot en MongoDB-database.
 
-First, run the development server:
+Funksjoner
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Gaming-inspirert design
+- Medlemssystem
+- Clerk-autentisering (kun innloggede brukere får tilgang til dashboard)
+- Dashboard-data lagret og hentet fra MongoDB
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Prosjektet er under utvikling.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+En utfordring har vært å implementere redigering av data direkte fra Next.js til MongoDB. Dette jobbes det videre med fremover.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Videre arbeid
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Forbedre CRUD-funksjonalitet (redigere data fra dashboard til MongoDB)
+- Optimalisere brukeropplevelse i dashboard
