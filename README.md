@@ -14,7 +14,7 @@ Prosjektet er under utvikling.
 
 En utfordring har vært å implementere redigering av data direkte fra Next.js til MongoDB. Dette jobbes det videre med fremover.
 
-## Videre arbeid
+-Videre arbeid
 
 - Forbedre CRUD-funksjonalitet (redigere data fra dashboard til MongoDB)
 - Optimalisere brukeropplevelse i dashboard
